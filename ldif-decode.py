@@ -24,16 +24,17 @@ def decode_b64(b64_string: str) -> str:
     return b64_string
 
 
-def main(file_handle: object) -> None:
+def main(file_handle: object) -> str:
     b64_string: str = ""
     label: str = ""
+    output: str = ""
 
     for line in file_handle.readlines():
         # First line of a base64 value
         if re.match(r'^\w+::\s', line):
             utf_string = decode_b64(b64_string)
             if len(utf_string) > 0:
-                print(label, utf_string)
+                output = f'{output}\n{label} {utf_string}'
             label, b64_string = line.strip().split()
             continue
         
@@ -46,11 +47,13 @@ def main(file_handle: object) -> None:
         # Decode once we have a complete base64 value
         if len(b64_string) > 0:
             utf_string = decode_b64(b64_string)
-            print(label, utf_string)
+            output = f'{output}\n{label} {utf_string}'
             b64_string = ""
 
         # Print all other lines
-        print(line, end="")
+        output = f'{output}\n{line}'
+
+    return output
 
 
 if __name__ == '__main__':
@@ -61,7 +64,7 @@ if __name__ == '__main__':
         # ... and if it fails, read from stdin
         file_handle = sys.stdin
 
-    main(file_handle)
+    print(main(file_handle))
 
     file_handle.close()
 
