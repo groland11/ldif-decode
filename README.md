@@ -3,8 +3,9 @@ Decode base64 strings in OpenLDAP LDIF output.
 
 ## Features
 - Takes input from LDIF file or stdin (standard input).
-- Decodes single and multiline base64 encoded attributes.
+- Decodes single and multiline base64 encoded LDAP attribute values.
 - Prints error messages to stderr (standard error output).
+- All other lines are kept unchanged.
 
 ## Usage
 ```
