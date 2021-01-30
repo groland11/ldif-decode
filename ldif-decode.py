@@ -52,7 +52,7 @@ def main(file_handle: object) -> str:
             b64_string = ""
 
         # Print all other lines
-        output = f'{output}\n{line}'
+        output = f'{output}{line}'
 
     # If base64 value has been in the last line
     if len(b64_string) > 0:
@@ -67,7 +67,10 @@ if __name__ == '__main__':
     try:
         # Try to read from first program parameter
         file_handle = open(sys.argv[1])
-    except:
+    except FileNotFoundError as e:
+        print(e, file=sys.stderr)
+        exit(1)
+    except Exception as e:
         # ... and if it fails, read from stdin
         file_handle = sys.stdin
 
