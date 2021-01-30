@@ -36,7 +36,12 @@ def main(file_handle: object) -> str:
             utf_string = decode_b64(b64_string)
             if len(utf_string) > 0:
                 output = f'{output}{label} {utf_string}\n'
-            label, b64_string = line.strip().split()
+            try:
+                label, b64_string = line.strip().split()
+            except ValueError as e:
+                # Handle malformed base64 lines gracefully
+                b64_string = ""
+                output = f'{output}{line}'
             continue
         
         # Continuation line of a base64 value

@@ -15,6 +15,11 @@ class LdifTestInput(unittest.TestCase):
         output = ld.main(file_handle)
         self.assertEqual(output.strip(), LdifTestInput.expected_output1)
 
+    def test_emptyvalue(self):
+        file_handle = io.StringIO('givenName:: ')
+        output = ld.main(file_handle)
+        self.assertEqual(output.strip(), 'givenName::')
+
     def test_twolines(self):
         input = ("userPassword:: e0NSWVBUfSQ2JHJvdW5kcz0yMDAwMDAwJEw0aFpTT3RoL2tpN0wkaDFXQ1Fxejl\n"
                   " CWkV2cURRNVR2aGVoUU45L3BxL21zMEZnTzJqWEc5UlBWVnU4SVRjNVg3eE13MEJZSGNrOG1veFA1\n"
