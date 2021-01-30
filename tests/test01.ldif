@@ -1,0 +1,49 @@
+# extended LDIF
+#
+# LDAPv3
+# base <dc=ip1> (default) with scope subtree
+# filter: (objectclass=*)
+# requesting: ALL
+#
+
+# ip1
+dn: dc=ip1
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: ip1
+dc: ip1
+
+# admin, ip1
+dn: cn=admin,dc=ip1
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+
+# People, ip1
+dn: ou=People,dc=ip1
+objectClass: organizationalUnit
+ou: People
+
+# roland, People, ip1
+dn: uid=roland,ou=People,dc=ip1
+description: User entry for Roland
+cn: Roland
+sn: Roland
+uid: roland
+gidNumber: 1000
+homeDirectory: /home/roland
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uidNumber: 1000
+userPassword:: e0NSWVBUfSQ2JHJvdW5kcz0yMDAwMDAwJEw0aFpTT3RoL2tpN0wkaDFXQ1Fxejl
+ CWkV2cURRNVR2aGVoUU45L3BxL21zMEZnTzJqWEc5UlBWVnU4SVRjNVg3eE13MEJZSGNrOG1veFA1
+ S2thVmhQOVhvQVBDQUIueGRkdjA=
+givenName:: RMO2cnRl
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 5
+# numEntries: 4
