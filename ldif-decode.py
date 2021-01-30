@@ -25,6 +25,7 @@ def decode_b64(b64_string: str) -> str:
 
 
 def main(file_handle: object) -> str:
+    """Process file_handle and return base64 decoded output"""
     b64_string: str = ""
     label: str = ""
     output: str = ""
@@ -34,7 +35,7 @@ def main(file_handle: object) -> str:
         if re.match(r'^\w+::\s', line):
             utf_string = decode_b64(b64_string)
             if len(utf_string) > 0:
-                output = f'{output}\n{label} {utf_string}'
+                output = f'{output}{label} {utf_string}\n'
             label, b64_string = line.strip().split()
             continue
         
@@ -47,11 +48,17 @@ def main(file_handle: object) -> str:
         # Decode once we have a complete base64 value
         if len(b64_string) > 0:
             utf_string = decode_b64(b64_string)
-            output = f'{output}\n{label} {utf_string}'
+            output = f'{output}{label} {utf_string}\n'
             b64_string = ""
 
         # Print all other lines
         output = f'{output}\n{line}'
+
+    # If base64 value has been in the last line
+    if len(b64_string) > 0:
+        utf_string = decode_b64(b64_string)
+        output = f'{output}{label} {utf_string}\n'
+        b64_string = ""
 
     return output
 
